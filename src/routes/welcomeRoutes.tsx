@@ -4,7 +4,7 @@ import { Welcome2 } from '../pages/Welcome2'
 import { Welcome3 } from '../pages/Welcome3'
 import { Welcome4 } from '../pages/Welcome4'
 
-export const welcomeRputes = {
+export const welcomeRoutes = {
   path: 'welcome',
   element: <WelcomeLayout/>,
   children: [
