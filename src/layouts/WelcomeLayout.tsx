@@ -27,9 +27,10 @@ export const WelcomeLayout: React.FC = () => {
         <img w-84px src={logo} />
         <h1 text-32px >太阳账簿</h1>
       </header>
-      <main bg-white shrink-1 grow-1 m-24px rounded-8px flex justify-center items-center>
+      <main shrink-1 grow-1 m-24px >
         {transitions((style, pathname) =>
-          <animated.div key={pathname} style={style}>
+          <animated.div key={pathname} style={style} bg-white w="100%" h="100%" rounded-8px
+            flex justify-center items-center>
             {map.current[pathname]}
           </animated.div>,
         )}
