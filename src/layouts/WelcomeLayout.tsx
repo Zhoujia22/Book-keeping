@@ -14,7 +14,7 @@ export const WelcomeLayout: React.FC = () => {
   const map = useRef<Record<string, ReactNode>>({})
   const location = useLocation()
   const outlet = useOutlet()
-  const [extraStyle, setExtraStyle] = useState({ position: 'relative' })
+  const [extraStyle, setExtraStyle] = useState<{ position: 'relative' | 'absolute' }>({ position: 'relative' })
   map.current[location.pathname] = outlet
   const transitions = useTransition(location.pathname, {
     from: { transform: location.pathname === '/welcome/1' ? 'translateX(0%)' : 'translateX(100%)' },
@@ -23,6 +23,9 @@ export const WelcomeLayout: React.FC = () => {
     config: { duration: 300 },
     onStart: () => {
       setExtraStyle({ position: 'absolute' })
+    },
+    onRest: () => {
+      setExtraStyle({ position: 'relative' })
     },
   })
   return (
