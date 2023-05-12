@@ -1,10 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import Unocss from 'unocss/vite'
+import { viteMockServe } from 'vite-plugin-mock'
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    Unocss(),
-    react()],
+export default defineConfig(({ command }) => {
+  return {
+    plugins: [
+      Unocss(),
+      react(),
+      viteMockServe()
+    ]
+  }
 })
