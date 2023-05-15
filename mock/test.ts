@@ -20,21 +20,27 @@ export default [
     method: 'get',
     response: (): Resources<Item> => {
       return {
-        resources: [{
-          id: 1,
-          user_id: 1,
-          amount: 1000,
-          tag_ids: [1, 2],
-          happen_at: '2021-08-01T00:00:00.000Z',
-          created_at: '2021-08-01T00:00:00.000Z',
-          updated_at: '2021-08-01T00:00:00.000Z',
-          kind: 'expenses',
-        }],
+        resources: [],
         pager: {
           page: 1,
           per_page: 25,
-          count: 100
+          count: 0
         }
+        // resources: [{
+        //   id: 1,
+        //   user_id: 1,
+        //   amount: 1000,
+        //   tag_ids: [1, 2],
+        //   happen_at: '2021-08-01T00:00:00.000Z',
+        //   created_at: '2021-08-01T00:00:00.000Z',
+        //   updated_at: '2021-08-01T00:00:00.000Z',
+        //   kind: 'expenses',
+        // }],
+        // pager: {
+        //   page: 1,
+        //   per_page: 25,
+        //   count: 100
+        // }
       }
     },
   },
