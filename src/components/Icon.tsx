@@ -1,5 +1,4 @@
 import c from 'classnames'
-import s from './Icon.module.scss'
 
 interface Porps {
   name: string
@@ -8,7 +7,7 @@ interface Porps {
 
 export const Icon: React.FC<Porps> = ({ name, className }) => {
   return (
-    <svg className={c(className, s.icon)}>
+    <svg className={c(className, 'j-icon')}>
       <use xlinkHref={`#${name}`} ></use>
     </svg>
   )
