@@ -14,7 +14,7 @@ background: linear-gradient(180deg, rgba(255,208,0,1) 0%, rgba(255,232,37,1) 100
 
 export const ItemsPage: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
-  const { visible } = useMenuStore()
+  const { visible, setVisible } = useMenuStore()
   const [items] = useState<Item[]>([
     {
       id: 1,
@@ -47,7 +47,7 @@ export const ItemsPage: React.FC = () => {
       <ItemsSummary />
       <ItemsList items={items} />
       <AddItemFloatButton />
-      {visible ? <TopMenu /> : null}
+      {visible ? <TopMenu onClickMask={() => setVisible(false)} /> : null}
     </div>
   )
 }

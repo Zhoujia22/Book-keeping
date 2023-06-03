@@ -9,11 +9,12 @@ declare module 'react' {
     after?: string
     shadow?: boolean
     w?: string
+    z?: string
     h?: string
-    bg?:string
-    rounded?:string
-    fixed?:boolean
-    b?:string
+    bg?: string
+    rounded?: string
+    fixed?: boolean
+    b?: string
   }
   interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
     w?: string
