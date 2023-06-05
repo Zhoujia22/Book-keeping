@@ -12,6 +12,7 @@ declare module 'react' {
     z?: string
     h?: string
     bg?: string
+    block?: boolean
     rounded?: string
     fixed?: boolean
     b?: string
