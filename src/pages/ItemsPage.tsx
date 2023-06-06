@@ -15,28 +15,6 @@ background: linear-gradient(180deg, rgba(255,208,0,1) 0%, rgba(255,232,37,1) 100
 export const ItemsPage: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
   const { visible, setVisible } = useMenuStore()
-  const [items] = useState<Item[]>([
-    {
-      id: 1,
-      kind: 'incomes',
-      amount: 1000,
-      user_id: 1,
-      tag_ids: [1],
-      happen_at: '2021-01-01T00:00:00.000Z',
-      created_at: '2021-01-01T00:00:00.000Z',
-      updated_at: '2021-01-01T00:00:00.000Z',
-    },
-    {
-      id: 2,
-      kind: 'incomes',
-      amount: 1000,
-      user_id: 1,
-      tag_ids: [1],
-      happen_at: '2021-01-01T00:00:00.000Z',
-      created_at: '2021-01-01T00:00:00.000Z',
-      updated_at: '2021-01-01T00:00:00.000Z',
-    }
-  ])
 
   return (
     <div>
@@ -45,9 +23,9 @@ export const ItemsPage: React.FC = () => {
         <TimeRangePicker selected={timeRange} onSelected={setTimeRange} />
       </Div>
       <ItemsSummary />
-      <ItemsList items={items} />
+      <ItemsList />
       <AddItemFloatButton />
-     <TopMenu onClickMask={() => setVisible(false)} visible={visible} />
+      <TopMenu onClickMask={() => setVisible(false)} visible={visible} />
     </div>
   )
 }
