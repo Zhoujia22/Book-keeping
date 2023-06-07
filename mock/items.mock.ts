@@ -27,8 +27,10 @@ function createList(n: number, attrs?: Partial<Item>): Item[] {
 }
 
 function createResponse({ page = 1, perPage = 10, count = 10 }, attrs?: Partial<Item>): Resources<Item> {
+  const sendCount = (page - 1) * perPage
+  const left = count - sendCount
   return {
-    resources: createList(perPage, attrs),
+    resources: left > 0 ? createList(perPage, attrs) : [],
     pager: {
       page,
       per_page: perPage,
@@ -42,5 +44,5 @@ export const itemsMock: MockMethod = {
   statusCode: 200,
   method: 'get',
   response: ({ query }: ResponseParams): Resources<Item> =>
-    createResponse({ count: 100, perPage: 10, page: parseInt(query.page) })
+    createResponse({ count: 30, perPage: 10, page: parseInt(query.page) })
 }
