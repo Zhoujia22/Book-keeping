@@ -52,7 +52,7 @@ export const WelcomeLayout: React.FC = () => {
     <div className='bg-#ffd103' flex h-screen flex-col items-stretch pb-16px>
       <header shrink-0 text-center pt-64px >
         <img w-84px h-84px src={logo} />
-        <h1 text-32px >太阳账簿</h1>
+        <h1 text-32px >小太阳账簿</h1>
       </header>
       <main shrink-1 grow-1 relative ref={main}>
         {transitions((style, pathname) =>

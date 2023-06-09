@@ -5,7 +5,7 @@ interface Props {
   icon: ReactNode
 }
 
-export const TopNav: React.FC<Props> = ({ title = '太阳账簿', icon },) => {
+export const TopNav: React.FC<Props> = ({ title = '小太阳账簿', icon },) => {
   return (
     <div flex items-center pt-24px pb-8px px-24px>
       <span w-24px h-24px mr-16px flex justify-center items-center
