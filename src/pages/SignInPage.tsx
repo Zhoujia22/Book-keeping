@@ -25,7 +25,6 @@ export const SignInPage: React.FC = () => {
             <Icon name='logo' className='w-84px h-84px' />
             <h1 text-32px font-bold>小太阳账簿</h1>
         </div>
-        <div b-1 b-red>{JSON.stringify(data)}</div>
         <form j-form onSubmit={onSubmit} >
             <div>
                 <span j-form-label>邮箱地址 {error.email?.[0] && <span text-red>{error.email[0]}</span>}</span>
