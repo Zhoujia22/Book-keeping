@@ -50,6 +50,7 @@ export const WelcomeLayout: React.FC = () => {
   }, [direction, location.pathname, linkMap])
   return (
     <div className='bg-#ffd103' flex h-screen flex-col items-stretch pb-16px>
+      <Link fixed text-white top-16px right-16px text-32px to="/welcome/xxx" onClick={onSkip}>跳过</Link>
       <header shrink-0 text-center pt-64px >
         <img w-84px h-84px src={logo} />
         <h1 text-32px >小太阳账簿</h1>
@@ -63,10 +64,6 @@ export const WelcomeLayout: React.FC = () => {
           </animated.div>,
         )}
       </main>
-      <footer text-24px text-center grid grid-cols-3 grid-rows-1 shrink-0 text-white >
-        <Link style={{ gridArea: '1 / 2 / 2 / 3' }} to={linkMap[location.pathname]}>下一页</Link>
-        <Link style={{ gridArea: '1 / 3 / 2 / 4' }} to="/home" onClick={onSkip}>跳过</Link>
-      </footer>
     </div >
   )
 }
