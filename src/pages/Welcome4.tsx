@@ -1,7 +1,14 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import p from '../assets/images/welcome4.svg'
+import { useLocalStore } from '../stores/useLocalStore'
 
 export const Welcome4: React.FC = () => {
+  const nav = useNavigate()
+  const { setHasReadWelcomes } = useLocalStore()
+  const onSkip = () => {
+    setHasReadWelcomes(true)
+    nav('/welcome/xxx')
+  }
   return (
     <div text-center>
       <img w-129px h-83px src={p} />
@@ -10,7 +17,7 @@ export const Welcome4: React.FC = () => {
         再也不怕数据丢失
       </h2>
       <div mt-64px>
-        <Link text-32px font-bold to='/welcome/xxx'>开启应用</Link>
+        <span text-32px font-bold onClick={onSkip}>开启应用</span>
       </div>
     </div>
   )

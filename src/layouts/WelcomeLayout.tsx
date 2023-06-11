@@ -1,7 +1,7 @@
 import { animated, useTransition } from '@react-spring/web'
 import type { ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
-import { Link, useLocation, useNavigate, useOutlet } from 'react-router-dom'
+import { useLocation, useNavigate, useOutlet } from 'react-router-dom'
 import logo from '../assets/images/logo.svg'
 import { useSwipe } from '../hooks/useSwipe'
 import { useLocalStore } from '../stores/useLocalStore'
@@ -19,7 +19,6 @@ export const WelcomeLayout: React.FC = () => {
   const main = useRef<HTMLElement>(null)
   const animating = useRef(false)
   const { direction } = useSwipe(main)
-  console.log(direction)
   const [extraStyle, setExtraStyle] = useState<{ position: 'relative' | 'absolute' }>({ position: 'relative' })
   map.current[location.pathname] = outlet
   const transitions = useTransition(location.pathname, {
@@ -36,11 +35,12 @@ export const WelcomeLayout: React.FC = () => {
     },
   },
   )
+  const nav = useNavigate()
   const { setHasReadWelcomes } = useLocalStore()
   const onSkip = () => {
     setHasReadWelcomes(true)
+    nav('/welcome/xxx')
   }
-  const nav = useNavigate()
   useEffect(() => {
     if (direction === 'left') {
       if (animating.current)
@@ -51,7 +51,7 @@ export const WelcomeLayout: React.FC = () => {
   }, [direction, location.pathname, linkMap])
   return (
     <div className='bg-#ffd103' flex h-screen flex-col items-stretch pb-16px>
-      <Link fixed text-white top-16px right-16px text-32px to="/welcome/xxx" onClick={onSkip}>跳过</Link>
+      <span fixed text-white top-16px right-16px text-32px onClick={onSkip}>跳过</span>
       <header shrink-0 text-center pt-64px >
         <img w-84px h-84px src={logo} />
         <h1 text-32px >小太阳账簿</h1>
