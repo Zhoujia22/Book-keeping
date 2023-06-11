@@ -18,7 +18,8 @@ export const WelcomeLayout: React.FC = () => {
   const outlet = useOutlet()
   const main = useRef<HTMLElement>(null)
   const animating = useRef(false)
-  const { direction } = useSwipe(main, { onTouchStart: e => e.preventDefault() })
+  const { direction } = useSwipe(main)
+  console.log(direction)
   const [extraStyle, setExtraStyle] = useState<{ position: 'relative' | 'absolute' }>({ position: 'relative' })
   map.current[location.pathname] = outlet
   const transitions = useTransition(location.pathname, {
