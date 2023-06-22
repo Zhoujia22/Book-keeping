@@ -1,14 +1,12 @@
 import { animated, useSpring } from '@react-spring/web'
 import { useState } from 'react'
-import { CurrentUser } from './TopMenu/CurrentUser'
-import { Menu } from './TopMenu/Menu'
 
-interface Props {
+type Props = {
+  visible: boolean
   onClickMask?: () => void
-  visible?: boolean
 }
 
-export const TopMenu: React.FC<Props> = (props) => {
+export const Popup: React.FC<Props> = (props) => {
   const { onClickMask, visible } = props
   const [maskVisible, setMaskVisible] = useState(visible)
   const maskStyles = useSpring({
@@ -27,23 +25,22 @@ export const TopMenu: React.FC<Props> = (props) => {
 
   const menuStyles = useSpring({
     opacity: visible ? 1 : 0,
-    transform: visible ? 'translateX(0%)' : 'translateX(-100%)',
+    transform: visible ? 'translateY(0%)' : 'translateY(100%)',
   })
 
   const maskStyles2 = {
     ...maskStyles,
     visibility: (maskVisible ? 'visible' : 'hidden') as 'visible' | 'hidden'
   }
-
   return (
-    <>
-      <animated.div fixed left-0 top-0 w='100%' h='100%' className='bg-black:75'
-        z='[calc(var(--z-menu)-1)]' onClick={onClickMask} style={maskStyles2} />
-      <animated.div fixed top-0 left-0 w='70vw' max-w-20em h-screen flex flex-col
-        b-3px bg-white z='[var(--z-menu)]' style={menuStyles}>
-        <CurrentUser className="grow-0 shrink-0" />
-        <Menu className='grow-1 shrink-1' />
-      </animated.div>
-    </>
+        <div>
+            <animated.div fixed top-0 left-0 h-full w-full className="bg-black:75"
+                z="[calc(var(--z-popup)-1)]" onClick={() => onClickMask?.()}
+                style={maskStyles2} />
+            <animated.div fixed bottom-0 left-0 w-full min-h-100px bg-white
+                z="[calc(var(--z-popup))]"
+                style={menuStyles}>
+            </animated.div>
+        </div>
   )
 }
