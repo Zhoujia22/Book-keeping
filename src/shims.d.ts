@@ -5,6 +5,8 @@ declare module 'react' {
     relative?: boolean
     text?: string
     grid?: boolean
+    absolute?: boolean
+    top?: string
     before?: string
     after?: string
     shadow?: boolean
