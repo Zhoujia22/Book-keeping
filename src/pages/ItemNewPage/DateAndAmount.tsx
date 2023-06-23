@@ -26,20 +26,13 @@ export const DateAndAmounts: React.FC<Props> = (props) => {
     }}
     onTouchEnd={() => {
       setIsTouching(false)
-      const yushu = translateY % 36
-      if (yushu > 0) {
-        if (yushu > 18) {
-          setTranslateY(translateY + 36 - yushu)
-        } else {
-          setTranslateY(translateY - yushu)
-        }
-      } else {
-        if (yushu > -18) {
-          setTranslateY(translateY - yushu)
-        } else {
-          setTranslateY(translateY - 36 - yushu)
-        }
+      const remainder = translateY % 36
+      let y = translateY - remainder
+      if (Math.abs(remainder) > 18) {
+        y += 36 * (remainder > 0 ? 1 : -1)
       }
+      setTranslateY(y)
+      setIsTouching(false)
     }}
   >
     <div b-1 b-red h-36px absolute top="[calc(50%-18px)]" w-full />
