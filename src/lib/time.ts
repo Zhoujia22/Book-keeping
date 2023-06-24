@@ -7,10 +7,10 @@ type Parts = {
   seconds: number
   ms: number
 }
-
 type Unit =
-  'year' | 'years' | 'month' | 'months' | 'day' | 'days' |
-  'hour' | 'hours' | 'minute' | 'minutes' | 'second' | 'seconds'
+  | 'year' | 'years' | 'month' | 'months' | 'day' | 'days'
+  | 'hour' | 'hours' | 'minute' | 'minutes' | 'second' | 'seconds'
+  | 'ms'
 
 export function time(p?: number | string | Date) {
   return new Time(p)
@@ -23,10 +23,9 @@ export class Time {
   }
 
   /**
-                                     * 格式化输出
-                                     * @param pattern 目前只支持 yyyy MM dd HH mm ss fff
-                                     */
-
+   * 格式化输出
+   * @param pattern 目前只支持 yyyy MM dd HH mm ss fff
+   */
   format(pattern = 'yyyy-MM-dd') {
     return pattern
       .replace(/yyyy/g, this.year.toString())
@@ -54,8 +53,12 @@ export class Time {
       seconds: 'seconds',
       ms: 'ms'
     } as const
-
     this[table[unit]] += n
+    return this
+  }
+
+  get timestamp() {
+    return this.date.getTime()
   }
 
   get parts(): Parts {
@@ -66,7 +69,9 @@ export class Time {
     const minutes = this.date.getMinutes()
     const seconds = this.date.getSeconds()
     const ms = this.date.getMilliseconds()
-    return { year, month, day, hours, minutes, seconds, ms }
+    return {
+      year, month, day, hours, minutes, seconds, ms
+    }
   }
 
   set parts(p: Partial<Parts>) {
@@ -79,7 +84,6 @@ export class Time {
       seconds: 'setSeconds',
       ms: 'setMilliseconds'
     } as const
-
     Object.entries(p).forEach(([key, value]) => {
       const k = key as keyof typeof p
       const methodName = table[k]
