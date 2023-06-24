@@ -9,8 +9,12 @@ type Parts = {
 }
 
 type Unit =
-    'year' | 'years' | 'month' | 'months' | 'day' | 'days' |
-    'hour' | 'hours' | 'minute' | 'minutes' | 'second' | 'seconds'
+  'year' | 'years' | 'month' | 'months' | 'day' | 'days' |
+  'hour' | 'hours' | 'minute' | 'minutes' | 'second' | 'seconds'
+
+export function time(p?: number | string | Date) {
+  return new Time(p)
+}
 
 export class Time {
   date: Date
