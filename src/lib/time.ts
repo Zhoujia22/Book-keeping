@@ -22,6 +22,10 @@ export class Time {
     this.date = p ? new Date(p) : new Date()
   }
 
+  get lastDayOfMonth() {
+    return new Time(new Date(this.year, this.month - 1 + 1, 0))
+  }
+
   /**
    * 格式化输出
    * @param pattern 目前只支持 yyyy MM dd HH mm ss fff

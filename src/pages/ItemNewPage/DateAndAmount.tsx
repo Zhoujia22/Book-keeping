@@ -9,7 +9,7 @@ type Props = {
 export const DateAndAmounts: React.FC<Props> = (props) => {
   const { className } = props
 
-  const { toggle, popup } = usePopup(true, <DatePicker />)
+  const { toggle, popup } = usePopup(true, <DatePicker onChange={(date) => console.log(date.toLocaleString())} />)
   return (
     <>
       {popup}

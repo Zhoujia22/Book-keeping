@@ -2,10 +2,11 @@
   "extends": "@antfu",
   "rules": {
     "curly": "off",
-    "@typescript-eslint/brace-style": "off",
+    "arrow-parens": "off",
     "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/brace-style": "off",
+    "@typescript-eslint/lines-between-class-members": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
-    "max-statements-per-line": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
