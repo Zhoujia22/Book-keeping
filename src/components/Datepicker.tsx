@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { time } from '../lib/time'
 
 type Props = {
@@ -58,6 +58,10 @@ export const Clumn: React.FC<ColumProps> = (props) => {
   const { itemHeight = 36, className, items, value, onChange } = props
   const index = items.indexOf(value)
   const [isTouching, setIsTouching] = useState(false)
+  useEffect(() => {
+    const index = items.indexOf(value)
+    setTranslateY(index * -itemHeight)
+  }, [value])
   const [lastY, setLastY] = useState(-1)
   const [translateY, _setTranslateY] = useState(index * -itemHeight)
   const setTranslateY = (y: number) => {
