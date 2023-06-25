@@ -1,4 +1,4 @@
-import { Datepicker } from '../../components/Datepicker'
+import { DatePicker } from '../../components/Datepicker'
 import { Icon } from '../../components/Icon'
 import { usePopup } from '../../hooks/usePopup'
 
@@ -9,7 +9,7 @@ type Props = {
 export const DateAndAmounts: React.FC<Props> = (props) => {
   const { className } = props
 
-  const { toggle, popup } = usePopup(true, <Datepicker />)
+  const { toggle, popup } = usePopup(true, <DatePicker />)
   return (
     <>
       {popup}
