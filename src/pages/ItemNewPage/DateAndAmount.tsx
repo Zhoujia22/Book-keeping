@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { DatePicker } from '../../components/Datepicker'
 import { Icon } from '../../components/Icon'
 import { usePopup } from '../../hooks/usePopup'
+import { time } from '../../lib/time'
 
 type Props = {
   className?: string
@@ -8,11 +10,11 @@ type Props = {
 
 export const DateAndAmounts: React.FC<Props> = (props) => {
   const { className } = props
-
-  const { toggle, popup, hide } = usePopup(true, <DatePicker
+  const [date, setDate] = useState(new Date())
+  const { toggle, popup, hide } = usePopup(false, <DatePicker
     onCancel={() => hide()}
     onConfirm={(d) => {
-      console.log(d.toLocaleString())
+      setDate(d)
       hide()
     }}
   />)
@@ -24,7 +26,7 @@ export const DateAndAmounts: React.FC<Props> = (props) => {
           gap-x-8px items-center>
           <span flex items-center gap-x-8px onClick={toggle}>
             <Icon name="calendar" className="w-24px h-24px grow-0 shrink-0" />
-            <span grow-0 shrink-0 text-12px color="#999" >2000-02-03</span>
+            <span grow-0 shrink-0 text-12px color="#999" >{time(date).format()}</span>
           </span>
           <code grow-1 shrink-1 text-right color="#53A867">123456789.01  </code>
         </div>

@@ -17,15 +17,13 @@ export function time(p?: number | string | Date) {
 }
 
 export class Time {
-  date: Date
+  #date: Date
   constructor(p?: number | string | Date) {
-    this.date = p ? new Date(p) : new Date()
+    this.#date = p ? new Date(p) : new Date()
   }
-
   get lastDayOfMonth() {
     return new Time(new Date(this.year, this.month - 1 + 1, 0))
   }
-
   /**
    * 格式化输出
    * @param pattern 目前只支持 yyyy MM dd HH mm ss fff
@@ -40,7 +38,6 @@ export class Time {
       .replace(/ss/g, this.seconds.toString().padStart(2, '0'))
       .replace(/fff/g, this.ms.toString().padStart(3, '0'))
   }
-
   add(n: number, unit: Unit) {
     const table = {
       year: 'year',
@@ -60,24 +57,24 @@ export class Time {
     this[table[unit]] += n
     return this
   }
-
-  get timestamp() {
-    return this.date.getTime()
+  get date() {
+    return new Date(this.#date)
   }
-
+  get timestamp() {
+    return this.#date.getTime()
+  }
   get parts(): Parts {
-    const year = this.date.getFullYear()
-    const month = this.date.getMonth() + 1
-    const day = this.date.getDate()
-    const hours = this.date.getHours()
-    const minutes = this.date.getMinutes()
-    const seconds = this.date.getSeconds()
-    const ms = this.date.getMilliseconds()
+    const year = this.#date.getFullYear()
+    const month = this.#date.getMonth() + 1
+    const day = this.#date.getDate()
+    const hours = this.#date.getHours()
+    const minutes = this.#date.getMinutes()
+    const seconds = this.#date.getSeconds()
+    const ms = this.#date.getMilliseconds()
     return {
       year, month, day, hours, minutes, seconds, ms
     }
   }
-
   set parts(p: Partial<Parts>) {
     const table = {
       year: 'setFullYear',
@@ -92,62 +89,48 @@ export class Time {
       const k = key as keyof typeof p
       const methodName = table[k]
       value = k === 'month' ? value - 1 : value
-      this.date[methodName](value)
+      this.#date[methodName](value)
     })
   }
-
   get year() {
     return this.parts.year
   }
-
   set year(v) {
     this.parts = { year: v }
   }
-
   get month() {
     return this.parts.month
   }
-
   set month(v) {
     this.parts = { month: v }
   }
-
   get day() {
     return this.parts.day
   }
-
   set day(v) {
     this.parts = { day: v }
   }
-
   get hours() {
     return this.parts.hours
   }
-
   set hours(v) {
     this.parts = { hours: v }
   }
-
   get minutes() {
     return this.parts.minutes
   }
-
   set minutes(v) {
     this.parts = { minutes: v }
   }
-
   get seconds() {
     return this.parts.seconds
   }
-
   set seconds(v) {
     this.parts = { seconds: v }
   }
-
   get ms() {
     return this.parts.ms
   }
-
   set ms(v) {
     this.parts = { ms: v }
   }
