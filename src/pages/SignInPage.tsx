@@ -5,6 +5,7 @@ import { TopNav } from '../components/TopNav'
 import { useSignInStore } from '../stores/useSignInStore'
 import { hasError, validate } from '../lib/validate'
 import { ajax } from '../lib/ajax'
+import { Input } from '../components/Input'
 
 export const SignInPage: React.FC = () => {
   const { data, error, setData, setError } = useSignInStore()
@@ -30,11 +31,8 @@ export const SignInPage: React.FC = () => {
             <h1 text-32px font-bold>小太阳账簿</h1>
         </div>
         <form j-form onSubmit={onSubmit} >
-            <div>
-                <span j-form-label>邮箱地址 {error.email?.[0] && <span text-red>{error.email[0]}</span>}</span>
-                <input j-input-text type="text" placeholder='请输入正确的邮箱地址'
-                    value={data.email} onChange={e => setData({ email: e.target.value })} />
-            </div>
+            <Input label='邮箱地址' placeholder='请输入邮箱，然后点击发送验证码' value={data.email}
+                onChange={value => setData({ email: value })} error={error.email?.[0]} />
             <div>
                 <span j-form-label>验证码{error.code?.[0] && <span text-red>{error.code[0]}</span>}</span>
                 <div flex gap-x-16px>
