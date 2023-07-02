@@ -11,14 +11,14 @@ export const SignInPage: React.FC = () => {
   const { data, error, setData, setError } = useSignInStore()
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
-    const error = validate(data, [
+    const newError = validate(data, [
       { key: 'email', type: 'required', message: '请输入邮箱地址' },
       { key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '邮箱地址格式不正确' },
       { key: 'code', type: 'required', message: '请输入验证码' },
       { key: 'code', type: 'length', min: 6, max: 6, message: '验证码必须是6个字符' },
     ])
-    setError(error)
-    if (!hasError(error)) {
+    setError(newError)
+    if (!hasError(newError)) {
       ajax.post('/api/v1/session', data)
     }
   }
