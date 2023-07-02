@@ -23,21 +23,21 @@ export const SignInPage: React.FC = () => {
     }
   }
   return (<div>
-        <Gradient>
-            <TopNav title='登录' icon={<Icon className='w-24px h-24px' name="back" />} />
-        </Gradient>
-        <div text-center pt-40px pb-16px>
-            <Icon name='logo' className='w-84px h-84px' />
-            <h1 text-32px font-bold>小太阳账簿</h1>
-        </div>
-        <form j-form onSubmit={onSubmit} >
-            <Input label='邮箱地址' placeholder='请输入邮箱，然后点击发送验证码' value={data.email}
-                onChange={value => setData({ email: value })} error={error.email?.[0]} />
-            <Input label='验证码' type='sms_code' placeholder='6位数字' value={data.code}
-                onChange={value => setData({ code: value })} error={error.code?.[0]} />
-            <div m-100px>
-                <button j-btn type='submit'>登录</button>
-            </div>
-        </form>
-    </div>)
+    <Gradient>
+      <TopNav title='登录' icon={<Icon className='w-24px h-24px' name="back" />} />
+    </Gradient>
+    <div text-center pt-40px pb-16px>
+      <Icon name='logo' className='w-84px h-84px' />
+      <h1 text-32px font-bold>小太阳账簿</h1>
+    </div>
+    <form j-form onSubmit={onSubmit} >
+      <Input label='邮箱地址' placeholder='请输入邮箱，然后点击发送验证码' value={data.email}
+        onChange={email => setData({ email })} error={error.email?.[0]} />
+      <Input label='验证码' type='sms_code' placeholder='6位数字' value={data.code}
+        onChange={code => setData({ code })} error={error.code?.[0]} />
+      <div m-100px>
+        <button j-btn type='submit'>登录</button>
+      </div>
+    </form>
+  </div>)
 }
