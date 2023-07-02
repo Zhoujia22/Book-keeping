@@ -3,7 +3,8 @@
   --z-default: 128;
   --z-menu: 256;
   --z-dialog: 512;
-  --z-popup:1024
+  --z-popup: 1024;
+  --color-blue:#144a74
 }
 
 * {
@@ -58,4 +59,6 @@ code {
   outline: none;
 }
 
-::-webkit-scrollbar { display: none; }
+::-webkit-scrollbar {
+  display: none;
+}
