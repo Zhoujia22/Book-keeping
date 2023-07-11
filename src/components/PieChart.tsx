@@ -25,7 +25,7 @@ export const PieChart: React.FC<Props> = (props) => {
       series: [
         {
           type: 'pie',
-          radius: '50%',
+          radius: '80%',
           data: items?.map(item => ({ value: item.y, name: item.x })),
         }
       ]
