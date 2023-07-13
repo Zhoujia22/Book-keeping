@@ -22,6 +22,17 @@ export const SignInPage: React.FC = () => {
       ajax.post('/api/v1/session', data)
     }
   }
+
+  const onClickCode = () => {
+    const newError = validate({ email: data.email },
+      [{ key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '此邮箱格式不正确' }])
+    setError(newError)
+    if (hasError(newError)) {
+      console.log('有错')
+    } else {
+      console.log('无错')
+    }
+  }
   return (<div>
     <Gradient>
       <TopNav title='登录' icon={<Icon className='w-24px h-24px' name="back" />} />
@@ -34,7 +45,7 @@ export const SignInPage: React.FC = () => {
       <Input label='邮箱地址' placeholder='请输入邮箱，然后点击发送验证码' value={data.email}
         onChange={email => setData({ email })} error={error.email?.[0]} />
       <Input label='验证码' type='sms_code' placeholder='6位数字' value={data.code}
-        onChange={code => setData({ code })} error={error.code?.[0]} />
+        onChange={code => setData({ code })} error={error.code?.[0]} onClick={onClickCode} />
       <div m-100px>
         <button j-btn type='submit'>登录</button>
       </div>
