@@ -24,7 +24,7 @@ export const SignInPage: React.FC = () => {
     }
   }
 
-  const onClickCode = async () => {
+  const sendSmsCode = async () => {
     const newError = validate({ email: data.email },
       [{ key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '此邮箱格式不正确' }])
     setError(newError)
@@ -32,7 +32,7 @@ export const SignInPage: React.FC = () => {
       console.log('有错')
     } else {
       const response = await axios.post('http://121.196.236.94:8080/api/v1/validation_codes', { email: data.email })
-      console.log(response)
+      return response
     }
   }
   return (<div>
@@ -47,7 +47,7 @@ export const SignInPage: React.FC = () => {
       <Input label='邮箱地址' placeholder='请输入邮箱，然后点击发送验证码' value={data.email}
         onChange={email => setData({ email })} error={error.email?.[0]} />
       <Input label='验证码' type='sms_code' placeholder='6位数字' value={data.code}
-        onChange={code => setData({ code })} error={error.code?.[0]} onClick={onClickCode} />
+        onChange={code => setData({ code })} error={error.code?.[0]} request={sendSmsCode}/>
       <div m-100px>
         <button j-btn type='submit'>登录</button>
       </div>
