@@ -30,7 +30,6 @@ export const SignInPage: React.FC = () => {
       const response = await ajax.post<{ jwt: string }>('http://121.196.236.94:8080/api/v1/session', data)
         .catch(onSubmitError)
       const jwt = response.data.jwt
-      console.log('jwt', jwt)
       localStorage.setItem('jwt', jwt)
     }
   }
@@ -55,7 +54,7 @@ export const SignInPage: React.FC = () => {
       <h1 text-32px font-bold>小太阳账簿</h1>
     </div>
     <form j-form onSubmit={onSubmit} >
-      <Input label='邮箱地址' placeholder='请输入邮箱，然后点击发送验证码' value={data.email}
+      <Input type='text' label='邮箱地址' placeholder='请输入邮箱，然后点击发送验证码' value={data.email}
         onChange={email => setData({ email })} error={error.email?.[0]} />
       <Input label='验证码' type='sms_code' placeholder='6位数字' value={data.code}
         onChange={code => setData({ code })} error={error.code?.[0]} request={sendSmsCode} />
