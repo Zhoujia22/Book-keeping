@@ -9,6 +9,7 @@ declare module 'react' {
     top?: string
     before?: string
     after?: string
+    left?: string
     shadow?: boolean
     w?: string
     z?: string

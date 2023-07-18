@@ -1,6 +1,7 @@
 import type { FormEventHandler } from 'react'
 import type { AxiosError } from 'axios'
 import axios from 'axios'
+import styled from 'styled-components'
 import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
@@ -34,7 +35,22 @@ export const SignInPage: React.FC = () => {
       localStorage.setItem('jwt', jwt)
     }
   }
-  const { show, hide, popup } = usePopup({ children: <div text-red>加载中</div>, position: 'center' })
+
+  const Spin = styled(Icon)`
+    animation: spin 1s linear infinite;
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  `
+
+  const { show, hide, popup } = usePopup({
+    children:
+      <div p-16px>
+        <Spin className="w-32px h-32px" name="loading" />
+      </div>,
+    position: 'center'
+  })
   const sendSmsCode = async () => {
     const newError = validate({ email: data.email },
       [{ key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '此邮箱格式不正确' }])
