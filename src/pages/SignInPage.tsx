@@ -9,6 +9,7 @@ import type { FormError } from '../lib/validate'
 import { hasError, validate } from '../lib/validate'
 import { Input } from '../components/Input'
 import { ajax } from '../lib/ajax'
+import { usePopup } from '../hooks/usePopup'
 
 export const SignInPage: React.FC = () => {
   const { data, error, setData, setError } = useSignInStore()
@@ -33,34 +34,35 @@ export const SignInPage: React.FC = () => {
       localStorage.setItem('jwt', jwt)
     }
   }
-
+  const { show, hide, popup } = usePopup({ children: <div text-red>加载中</div>, position: 'center' })
   const sendSmsCode = async () => {
     const newError = validate({ email: data.email },
       [{ key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '此邮箱格式不正确' }])
     setError(newError)
-    if (hasError(newError)) {
-      console.log('有错')
-    } else {
-      const response = await axios.post('http://121.196.236.94:8080/api/v1/validation_codes', { email: data.email })
-      return response
-    }
+    if (hasError(newError)) { throw new Error('表单出错') }
+    show()
+    const response = await axios.post('http://121.196.236.94:8080/api/v1/validation_codes',
+      { email: data.email }).finally(hide)
+    return response
   }
-  return (<div>
-    <Gradient>
-      <TopNav title='登录' icon={<Icon className='w-24px h-24px' name="back" />} />
-    </Gradient>
-    <div text-center pt-40px pb-16px>
-      <Icon name='logo' className='w-84px h-84px' />
-      <h1 text-32px font-bold>小太阳账簿</h1>
-    </div>
-    <form j-form onSubmit={onSubmit} >
-      <Input type='text' label='邮箱地址' placeholder='请输入邮箱，然后点击发送验证码' value={data.email}
-        onChange={email => setData({ email })} error={error.email?.[0]} />
-      <Input label='验证码' type='sms_code' placeholder='6位数字' value={data.code}
-        onChange={code => setData({ code })} error={error.code?.[0]} request={sendSmsCode} />
-      <div m-100px>
-        <button j-btn type='submit'>登录</button>
+  return (
+    <div>
+      {popup}
+      <Gradient>
+        <TopNav title='登录' icon={<Icon className='w-24px h-24px' name="back" />} />
+      </Gradient>
+      <div text-center pt-40px pb-16px>
+        <Icon name='logo' className='w-84px h-84px' />
+        <h1 text-32px font-bold>小太阳账簿</h1>
       </div>
-    </form>
-  </div>)
+      <form j-form onSubmit={onSubmit} >
+        <Input type='text' label='邮箱地址' placeholder='请输入邮箱，然后点击发送验证码' value={data.email}
+          onChange={email => setData({ email })} error={error.email?.[0]} />
+        <Input label='验证码' type='sms_code' placeholder='6位数字' value={data.code}
+          onChange={code => setData({ code })} error={error.code?.[0]} request={sendSmsCode} />
+        <div m-100px>
+          <button j-btn type='submit'>登录</button>
+        </div>
+      </form>
+    </div>)
 }

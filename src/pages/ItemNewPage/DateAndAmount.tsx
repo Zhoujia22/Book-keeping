@@ -19,13 +19,15 @@ export const DateAndAmounts: React.FC<Props> = (props) => {
     _setOutput(str)
   }
   const [date, setDate] = useState(new Date())
-  const { toggle, popup, hide } = usePopup(false, <DatePicker
-    onCancel={() => hide()}
-    onConfirm={(d) => {
-      setDate(d)
-      hide()
-    }}
-  />)
+  const { toggle, popup, hide } = usePopup({
+    children: <DatePicker
+      onCancel={() => hide()}
+      onConfirm={(d) => {
+        setDate(d)
+        hide()
+      }}
+    />
+  })
   const append = (char: string) => {
     switch (char) {
       case '0':
