@@ -1,10 +1,11 @@
 import useSWR from 'swr'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
+import type { AxiosError } from 'axios'
 import p from '../assets/images/logo.svg'
-import { ajax } from '../lib/ajax'
 import { useTitle } from '../hooks/useTitle'
 import { Loading } from '../components/Loading'
 import { AddItemFloatButton } from '../components/AddItemFloatButton'
+import { ajax } from '../lib/ajax'
 
 interface Props {
   title?: string
@@ -12,9 +13,19 @@ interface Props {
 
 export const Home: React.FC<Props> = (props) => {
   useTitle(props.title)
+  const nav = useNavigate()
+  const onHttpError = (error: AxiosError) => {
+    if (error.response) {
+      if (error.response.status === 401) {
+        nav('/sign_in')
+      }
+    }
+    throw error
+  }
 
   const { data: meData, error: meError } = useSWR('/api/v1/me', async (path) => {
-    return (await ajax.get<Resource<User>>(path)).data.resource
+    const response = await ajax.get<Resource<User>>(path).catch(onHttpError)
+    return response.data.resource
   })
   const { data: itemsData, error: itemsError } = useSWR(meData ? '/api/v1/items' : null, async (path) => {
     return (await ajax.get<Resources<Item>>(path)).data

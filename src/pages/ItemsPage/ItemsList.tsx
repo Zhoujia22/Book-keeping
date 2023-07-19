@@ -1,6 +1,6 @@
 import useSWRInfinite from 'swr/infinite'
 import styled from 'styled-components'
-import { ajax } from '../../lib/ajax'
+import { useAjax } from '../../lib/ajax'
 
 interface Props {
 }
@@ -23,8 +23,9 @@ function getKey(pageIndex: number, prev: Resources<Item>) {
 }
 
 export const ItemsList: React.FC<Props> = () => {
+  const { get } = useAjax()
   const { data, error, size, setSize } = useSWRInfinite(
-    getKey, async path => (await ajax.get<Resources<Item>>(path)).data
+    getKey, async path => (await get<Resources<Item>>(path)).data
   )
 
   const onLoadMore = () => {
@@ -72,7 +73,7 @@ export const ItemsList: React.FC<Props> = () => {
           ? <Div>数据加载中...</Div>
           : <Div >
             <button j-btn onClick={onLoadMore}>加载更多</button>
-            </Div>
+          </Div>
       }
     </>
   }

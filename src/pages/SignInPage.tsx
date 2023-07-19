@@ -1,7 +1,5 @@
 import type { FormEventHandler } from 'react'
 import type { AxiosError } from 'axios'
-import axios from 'axios'
-import styled from 'styled-components'
 import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
@@ -9,8 +7,7 @@ import { useSignInStore } from '../stores/useSignInStore'
 import type { FormError } from '../lib/validate'
 import { hasError, validate } from '../lib/validate'
 import { Input } from '../components/Input'
-import { ajax } from '../lib/ajax'
-import { usePopup } from '../hooks/usePopup'
+import { useAjax } from '../lib/ajax'
 
 export const SignInPage: React.FC = () => {
   const { data, error, setData, setError } = useSignInStore()
@@ -23,47 +20,31 @@ export const SignInPage: React.FC = () => {
       { key: 'code', type: 'required', message: '请输入验证码' },
       { key: 'code', type: 'length', min: 6, max: 6, message: '验证码必须是6个字符' },
     ])
+
     const onSubmitError = (err: AxiosError<{ errors: FormError<typeof data> }>) => {
       setError(err.response?.data?.errors ?? {})
       throw error
     }
     setError(newError)
     if (!hasError(newError)) {
-      const response = await ajax.post<{ jwt: string }>('http://121.196.236.94:8080/api/v1/session', data)
+      const response = await post<{ jwt: string }>('http://121.196.236.94:8080/api/v1/session', data)
         .catch(onSubmitError)
       const jwt = response.data.jwt
       localStorage.setItem('jwt', jwt)
     }
   }
-
-  const Spin = styled(Icon)`
-    animation: spin 1s linear infinite;
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-  `
-
-  const { show, hide, popup } = usePopup({
-    children:
-      <div p-16px>
-        <Spin className="w-32px h-32px" name="loading" />
-      </div>,
-    position: 'center'
-  })
+  const { post } = useAjax({ showLoading: true })
   const sendSmsCode = async () => {
     const newError = validate({ email: data.email },
       [{ key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '此邮箱格式不正确' }])
     setError(newError)
     if (hasError(newError)) { throw new Error('表单出错') }
-    show()
-    const response = await axios.post('http://121.196.236.94:8080/api/v1/validation_codes',
-      { email: data.email }).finally(hide)
+    const response = await post('http://121.196.236.94:8080/api/v1/validation_codes',
+      { email: data.email })
     return response
   }
   return (
     <div>
-      {popup}
       <Gradient>
         <TopNav title='登录' icon={<Icon className='w-24px h-24px' name="back" />} />
       </Gradient>
