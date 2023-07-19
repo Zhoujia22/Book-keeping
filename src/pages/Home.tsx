@@ -5,7 +5,7 @@ import p from '../assets/images/logo.svg'
 import { useTitle } from '../hooks/useTitle'
 import { Loading } from '../components/Loading'
 import { AddItemFloatButton } from '../components/AddItemFloatButton'
-import { ajax } from '../lib/ajax'
+import { useAjax } from '../lib/ajax'
 
 interface Props {
   title?: string
@@ -13,6 +13,7 @@ interface Props {
 
 export const Home: React.FC<Props> = (props) => {
   useTitle(props.title)
+  const { get } = useAjax()
   const nav = useNavigate()
   const onHttpError = (error: AxiosError) => {
     if (error.response) {
@@ -24,11 +25,11 @@ export const Home: React.FC<Props> = (props) => {
   }
 
   const { data: meData, error: meError } = useSWR('/api/v1/me', async (path) => {
-    const response = await ajax.get<Resource<User>>(path).catch(onHttpError)
+    const response = await get<Resource<User>>(path).catch(onHttpError)
     return response.data.resource
   })
   const { data: itemsData, error: itemsError } = useSWR(meData ? '/api/v1/items' : null, async (path) => {
-    return (await ajax.get<Resources<Item>>(path)).data
+    return (await get<Resources<Item>>(path)).data
   })
   const isLoadingMe = !meData && !meError
   const isLoadingItems = meData && !itemsData && !itemsError
