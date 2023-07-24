@@ -1,5 +1,6 @@
 import type { FormEventHandler } from 'react'
 import type { AxiosError } from 'axios'
+import { useNavigate } from 'react-router-dom'
 import { Gradient } from '../components/Gradient'
 import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
@@ -11,7 +12,7 @@ import { useAjax } from '../lib/ajax'
 
 export const SignInPage: React.FC = () => {
   const { data, error, setData, setError } = useSignInStore()
-
+  const nav = useNavigate()
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     const newError = validate(data, [
@@ -31,6 +32,7 @@ export const SignInPage: React.FC = () => {
         .catch(onSubmitError)
       const jwt = response.data.jwt
       localStorage.setItem('jwt', jwt)
+      nav('/items')
     }
   }
   const { post } = useAjax({ showLoading: true })

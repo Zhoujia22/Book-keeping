@@ -41,9 +41,8 @@ function createResponse({ page = 1, perPage = 10, count = 10 }, attrs?: Partial<
 
 export const itemsMock: MockMethod = {
   url: '/api/v1/items',
-  statusCode: 200,
-  timeout: 500,
+  statusCode: 401,
   method: 'get',
   response: ({ query }: ResponseParams): Resources<Item> =>
-    createResponse({ count: 30, perPage: 10, page: parseInt(query.page) })
+    createResponse({ count: 0, perPage: 10, page: parseInt(query.page) || 1 })
 }

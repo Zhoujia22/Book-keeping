@@ -4,8 +4,7 @@ export const meMock: MockMethod = {
   url: '/api/v1/me',
   method: 'get',
   statusCode: 401,
-  // timeout: 10000,
   response: () => {
     return ''
-  }
+  },
 }
