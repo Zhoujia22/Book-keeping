@@ -5,6 +5,10 @@ export const meMock: MockMethod = {
   method: 'get',
   statusCode: 200,
   response: () => {
-    return ''
+    return {
+      resource: {
+        id: 1
+      }
+    }
   },
 }

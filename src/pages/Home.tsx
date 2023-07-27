@@ -33,15 +33,13 @@ export const Home: React.FC<Props> = (props) => {
     return <Navigate to="/items" />
   }
 
-  return (
-    <div>
-      <div flex justify-center items-center>
-        <img src={p} mt-20vh mb-20vh width="180px" height="180px"></img>
-      </div>
-      <div px-16px >
-        <button j-btn >开始记账</button>
-      </div>
-      <AddItemFloatButton />
+  return <div>
+    <div flex justify-center items-center>
+      <img mt-20vh mb-20vh width="128" height="130" src={p} />
     </div>
-  )
+    <div px-16px>
+      <button j-btn>开始记账</button>
+    </div>
+    <AddItemFloatButton />
+  </div >
 }
