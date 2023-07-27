@@ -6,7 +6,7 @@ import { TopNav } from '../components/TopNav'
 import { useCreateItemStore } from '../stores/useCreateItemStore'
 import s from './ItemsNewPage.module.scss'
 import { Tags } from './ItemNewPage/Tags'
-import { DateAndAmounts } from './ItemNewPage/DateAndAmount'
+import { ItemAmount } from './ItemNewPage/ItemAmount'
 import { ItemDate } from './ItemNewPage/ItemDate'
 
 export const ItemsNewPage: React.FC = () => {
@@ -37,7 +37,8 @@ export const ItemsNewPage: React.FC = () => {
         classPrefix='itemsNewPage'
         onChange={(tabItem) => { setData({ kind: tabItem }) }} />
       <div text-28px>{JSON.stringify(data)}</div>
-      <DateAndAmounts className='grow-0 shrink-0' itemDate={<ItemDate />} />
+      <ItemAmount className='grow-0 shrink-0' itemDate={<ItemDate value={data.happen_at}
+        onChange={(d) => setData({ happen_at: d })} />} />
     </div>
   )
 }

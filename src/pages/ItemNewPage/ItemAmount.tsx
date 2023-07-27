@@ -6,7 +6,7 @@ type Props = {
   itemDate: ReactNode
 }
 
-export const DateAndAmounts: React.FC<Props> = (props) => {
+export const ItemAmount: React.FC<Props> = (props) => {
   const { className } = props
   const [output, _setOutput] = useState('0')
   // 拦截器
