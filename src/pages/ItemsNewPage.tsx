@@ -7,6 +7,7 @@ import { useCreateItemStore } from '../stores/useCreateItemStore'
 import s from './ItemsNewPage.module.scss'
 import { Tags } from './ItemNewPage/Tags'
 import { DateAndAmounts } from './ItemNewPage/DateAndAmount'
+import { ItemDate } from './ItemNewPage/ItemDate'
 
 export const ItemsNewPage: React.FC = () => {
   const { data, error, setData, setError } = useCreateItemStore()
@@ -36,7 +37,7 @@ export const ItemsNewPage: React.FC = () => {
         classPrefix='itemsNewPage'
         onChange={(tabItem) => { setData({ kind: tabItem }) }} />
       <div text-28px>{JSON.stringify(data)}</div>
-      <DateAndAmounts className='grow-0 shrink-0' />
+      <DateAndAmounts className='grow-0 shrink-0' itemDate={<ItemDate />} />
     </div>
   )
 }
