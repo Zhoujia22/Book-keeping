@@ -26,6 +26,10 @@ export const ItemsNewPage: React.FC = () => {
         value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} />
     }]
 
+  const onSubmit = () => {
+    console.log('我是提交的按钮')
+  }
+
   return (
     <div className={s.wrapper} h-screen flex flex-col>
       <Gradient className='grow-0 shrink-0'>
@@ -37,8 +41,12 @@ export const ItemsNewPage: React.FC = () => {
         classPrefix='itemsNewPage'
         onChange={(tabItem) => { setData({ kind: tabItem }) }} />
       <div text-28px>{JSON.stringify(data)}</div>
-      <ItemAmount className='grow-0 shrink-0' value={data.amount} onChange={amount => setData({ amount })} itemDate={<ItemDate value={data.happen_at}
-        onChange={(happen_at) => setData({ happen_at })} />} />
+      <ItemAmount className='grow-0 shrink-0' value={data.amount}
+        onChange={amount => setData({ amount })}
+        onSubmit={onSubmit}
+        itemDate={<ItemDate value={data.happen_at}
+          onChange={(happen_at) => setData({ happen_at })}
+        />} />
     </div>
   )
 }
