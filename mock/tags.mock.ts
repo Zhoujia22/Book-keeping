@@ -5,7 +5,7 @@ export const tagsMock: MockMethod = {
   method: 'get',
   statusCode: 200,
   response: (): Resources<Tag> => {
-    const tags = Array.from({ length: 91 }).map<Tag>((tag, index) => ({
+    const tags = Array.from({ length: 20 }).map<Tag>((tag, index) => ({
       id: index,
       name: `打车${index}`,
       kind: 'expenses',
