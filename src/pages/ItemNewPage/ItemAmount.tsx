@@ -46,7 +46,6 @@ export const ItemAmount: React.FC<Props> = (props) => {
   }
   return (
     <>
-
       <div className={className} >
         <div flex p-t-15px p-b-16px px-16px border-t-1px border-t="#ddd"
           gap-x-8px items-center>
