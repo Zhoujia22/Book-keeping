@@ -30,7 +30,7 @@ function createResponse({ page = 1, perPage = 10, count = 10 }, attrs?: Partial<
   const sendCount = (page - 1) * perPage
   const left = count - sendCount
   return {
-    resources: left > 0 ? createList(perPage, attrs) : [],
+    resources: left > 0 ? createList(Math.min(left, perPage), attrs) : [],
     pager: {
       page,
       per_page: perPage,
@@ -43,6 +43,7 @@ export const tagsMock: MockMethod = {
   url: '/api/v1/tags',
   method: 'get',
   statusCode: 200,
-  response: ({ query }: ResponseParams): Resources<Tag> =>
-    createResponse({ count: 91, perPage: 50, page: parseInt(query.page) || 1 })
+  response: ({ query }: ResponseParams): Resources<Tag> => {
+    return createResponse({ count: 0, perPage: 50, page: parseInt(query.page) || 1 })
+  }
 }

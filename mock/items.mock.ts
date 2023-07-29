@@ -30,7 +30,7 @@ function createResponse({ page = 1, perPage = 10, count = 10 }, attrs?: Partial<
   const sendCount = (page - 1) * perPage
   const left = count - sendCount
   return {
-    resources: left > 0 ? createList(perPage, attrs) : [],
+    resources: left > 0 ? createList(Math.min(left, perPage), attrs) : [],
     pager: {
       page,
       per_page: perPage,
