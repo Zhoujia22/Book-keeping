@@ -18,16 +18,13 @@ const Div = styled.div`
 export const Tags: React.FC<Props> = (props) => {
   const { kind } = props
 
-  function getKey(pageIndex: number, prev: Resources<Item>) {
+  const getKey = (pageIndex: number, prev: Resources<Item>) => {
     if (prev) {
-      const sendCount = (prev.pager.page - 1) * prev.pager.per_page
-        + prev.resources.length
+      const sendCount = (prev.pager.page - 1) * prev.pager.per_page + prev.resources.length
       const count = prev.pager.count
-      if (count - sendCount <= 0) {
-        return null
-      }
+      if (sendCount >= count) { return null }
     }
-    return `/api/v1/tags?page=${pageIndex + 1}`
+    return `/api/v1/tags?page=${pageIndex + 1}&kind=${kind}`
   }
 
   const { get } = useAjax({ showLoading: true, handleError: true })

@@ -12,7 +12,7 @@ import { ItemAmount } from './ItemNewPage/ItemAmount'
 import { ItemDate } from './ItemNewPage/ItemDate'
 
 export const ItemsNewPage: React.FC = () => {
-  const { data, error, setData, setError } = useCreateItemStore()
+  const { data, setData, setError } = useCreateItemStore()
 
   const tabItems: { key: Item['kind']; text: string; element: ReactNode }[]
     = [{
