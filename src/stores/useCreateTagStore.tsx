@@ -14,7 +14,7 @@ export const useCreateTagStore = create<SignIn>((set, get) => (
   {
     data: {
       kind: 'expenses',
-      sign: '',
+      sign: '🔆',
       name: ''
 
     },
