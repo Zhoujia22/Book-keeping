@@ -12,8 +12,9 @@ export const EmojiInput: React.FC<Props> = (props) => {
   return (
         <div className={s.wrapper} b-1 rounded-8px>
             <div flex p-8px gap-x-16px overflow-auto text='#999'>
-                {emojis.map((emoji) => <span key={emoji.name} whitespace-nowrap
-                    className={emoji.name === emojiKind ? s.selectedTag : ''}
+                {emojis.map((emoji) => <span b-1 b-transparent rounded-2px
+                p-r-1 p-l-1 key={emoji.name} whitespace-nowrap
+                    className={emoji.name === emojiKind ? s.selectedTab : ''}
                     onClick={() => setEmojiKind(emoji.name)}>{emoji.name}
                 </span>)}
             </div>
@@ -23,7 +24,7 @@ export const EmojiInput: React.FC<Props> = (props) => {
                         justify-center key={emoji.name} style={{ display: emoji.name === emojiKind ? '' : 'none' }}>
                         {emoji.chars.map((char) => <span b-2 b-transparent className={char === value ? s.selected : ''}
                             rounded-8px key={char}
-                            onClick={() => value !== char && onChange?.(char)}
+                            onClick={() => value !== char && onChange?.(char ?? '')}
                         >
                             {char}
                         </span>)}

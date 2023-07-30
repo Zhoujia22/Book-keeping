@@ -1,5 +1,13 @@
 .wrapper {
-    .selected{
-      border-color: var(--color-blue);
-    }
+  .selected {
+    border-color: var(--color-blue);
   }
+
+  .selectedTab {
+    color: black;
+    background: #FBCA1F;
+    border: 1px solid black;
+    font-weight: 300;
+    box-shadow: 0.1em 0.1em;
+  }
+}
