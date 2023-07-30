@@ -1,9 +1,12 @@
 import type { FormEventHandler } from 'react'
 import { useEffect } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import type { AxiosError } from 'axios'
 import { Input } from '../../components/Input'
+import type { FormError } from '../../lib/validate'
 import { hasError, validate } from '../../lib/validate'
 import { useCreateTagStore } from '../../stores/useCreateTagStore'
+import { useAjax } from '../../lib/ajax'
 
 type Props = {
   type: 'create' | 'edit'
@@ -12,6 +15,9 @@ export const TagForm: React.FC<Props> = (props) => {
   const { type } = props
   const { data, error, setData, setError } = useCreateTagStore()
   const [searchParams] = useSearchParams()
+  const kind = searchParams.get('kind') ?? ''
+  const { post } = useAjax({ showLoading: true, handleError: true })
+  const nav = useNavigate()
   useEffect(() => {
     if (type !== 'create') { return }
     const kind = searchParams.get('kind')
@@ -32,7 +38,18 @@ export const TagForm: React.FC<Props> = (props) => {
     // 然后 setData
   }, [])
 
-  const onSubmit: FormEventHandler = (e) => {
+  const onSubmitError = (error: AxiosError<{ errors: FormError<typeof data> }>) => {
+    if (error.response) {
+      const { status } = error.response
+      if (status === 422) {
+        const { errors } = error.response.data
+        setError(errors)
+      }
+    }
+    throw error
+  }
+
+  const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault()
     const newError = validate(data, [
       { key: 'kind', type: 'required', message: '标签类型必填' },
@@ -42,20 +59,22 @@ export const TagForm: React.FC<Props> = (props) => {
     ])
     setError(newError)
     if (!hasError(newError)) {
-      // 发起 AJAX 请求
+      const response = await post<Resource<Tag>>('/api/v1/tags', data).catch(onSubmitError)
+      setData(response.data.resource)
+      nav(`/items/new?kind=${encodeURIComponent(kind)}`)
     }
   }
   return (
-        <form onSubmit={onSubmit} p-16px p-t-32px flex flex-col gap-y-8px>
-            <Input label='标签名' error={error.name?.[0]} value={data.name}
-                onChange={name => setData({ name })} />
-            <Input type='emoji' label={<span>图标 <span text-24px>{data.sign}</span></span>}
-                value={data.sign} onChange={sign => setData({ sign })}
-                error={error.sign?.[0]} />
-            <p text-center p-b-24px>记账时长按标签，即可进行编辑</p>
-            <div>
-                <button j-btn>确定</button>
-            </div>
-        </form>
+    <form onSubmit={onSubmit} p-16px p-t-32px flex flex-col gap-y-8px>
+      <Input type='text' label='标签名' error={error.name?.[0]} value={data.name}
+        onChange={name => setData({ name })} />
+      <Input type='emoji' label={<span>图标 <span text-24px>{data.sign}</span></span>}
+        value={data.sign} onChange={sign => setData({ sign })}
+        error={error.sign?.[0]} />
+      <p text-center p-b-24px>记账时长按标签，即可进行编辑</p>
+      <div>
+        <button j-btn>确定</button>
+      </div>
+    </form>
   )
 }

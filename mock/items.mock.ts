@@ -39,10 +39,11 @@ function createResponse({ page = 1, perPage = 10, count = 10 }, attrs?: Partial<
   }
 }
 
-export const itemsMock: MockMethod = {
+export const itemsMock: MockMethod[] = [{
   url: '/api/v1/items',
   statusCode: 200,
   method: 'get',
   response: ({ query }: ResponseParams): Resources<Item> =>
     createResponse({ count: 0, perPage: 10, page: parseInt(query.page) || 1 })
 }
+]
