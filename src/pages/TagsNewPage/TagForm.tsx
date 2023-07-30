@@ -64,6 +64,7 @@ export const TagForm: React.FC<Props> = (props) => {
       nav(`/items/new?kind=${encodeURIComponent(kind)}`)
     }
   }
+
   return (
     <form onSubmit={onSubmit} p-16px p-t-32px flex flex-col gap-y-8px>
       <Input type='text' label='标签名' error={error.name?.[0]} value={data.name}
