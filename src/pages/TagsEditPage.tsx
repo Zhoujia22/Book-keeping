@@ -3,15 +3,10 @@ import { Gradient } from '../components/Gradient'
 import { TopNav } from '../components/TopNav'
 import { useAjax } from '../lib/ajax'
 import { BackIcon } from '../components/BackIcon'
+import { confirmable } from '../components/confirmable'
 import { TagForm } from './TagsNewPage/TagForm'
 
 export const TagsEditPage: React.FC = () => {
-  const confirmable = (fn: () => void) => {
-    const result = window.confirm('确定要删除吗？')
-    if (result) {
-      fn()
-    }
-  }
   const { id } = useParams()
   const { destroy } = useAjax()
   const nav = useNavigate()
