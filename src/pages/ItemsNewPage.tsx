@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react'
 import { Gradient } from '../components/Gradient'
-import { Icon } from '../components/Icon'
 import { Tabs } from '../components/Tabs'
 import { TopNav } from '../components/TopNav'
 import { useCreateItemStore } from '../stores/useCreateItemStore'
 import { hasError, validate } from '../lib/validate'
 import { useAjax } from '../lib/ajax'
+import { BackIcon } from '../components/BackIcon'
 import s from './ItemsNewPage.module.scss'
 import { Tags } from './ItemNewPage/Tags'
 import { ItemAmount } from './ItemNewPage/ItemAmount'
@@ -41,14 +41,13 @@ export const ItemsNewPage: React.FC = () => {
       const message = Object.values(error).flat().join('\n')
       window.alert(message)
     } else {
-      const response = await post<Resource<Item>>('/api/v1/items', data)
-      console.log(response.data.resource)
+      await post<Resource<Item>>('/api/v1/items', data)
     }
   }
   return (
     <div className={s.wrapper} h-screen flex flex-col>
       <Gradient className='grow-0 shrink-0'>
-        <TopNav title="记一笔" icon={<Icon name="back" />} />
+        <TopNav title="记一笔" icon={<BackIcon />} />
       </Gradient>
       <Tabs tabItems={tabItems}
         className="text-center grow-1 shrink-1 overflow-hidden"
