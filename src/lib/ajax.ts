@@ -66,7 +66,9 @@ export function useAjax(options?: Options) {
         if (showLoading) { setVisible(false) }
       })
     },
-    delete: () => { },
+    destroy: <T>(path: string, config?: AxiosRequestConfig<any>) => {
+      return axios.delete<T>(path, config).catch(onError)
+    },
   }
   return ajax
 }
