@@ -2,7 +2,7 @@ import { Money } from './Money'
 
 type Props = {
   className?: string
-  items?: { name: string; value: number; sign: string }[]
+  items?: { name: string; value: number | string; sign: string }[]
 }
 const colors = ['#de5252', '#edaa9f', '#ffa750', '#13a9e4', '#53a867', '#eba953', '#91cc75', '#fac858', '#ee6666', '#73c0de']
 

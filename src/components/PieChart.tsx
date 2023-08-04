@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 
 type Props = {
   className?: string
-  items?: { name: number | string; value: number }[]
+  items?: { name: number | string; value: number | string }[]
 }
 
 export const PieChart: React.FC<Props> = (props) => {
@@ -34,7 +34,7 @@ export const PieChart: React.FC<Props> = (props) => {
         {
           type: 'pie',
           radius: '80%',
-          data: items
+          data: items.map((item, index) => ({ ...item, value: parseFloat(item.value.toString()) }))
         }
       ]
     }
