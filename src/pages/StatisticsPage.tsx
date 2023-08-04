@@ -14,17 +14,30 @@ import { time } from '../lib/time'
 import { useAjax } from '../lib/ajax'
 
 type Groups = { happen_at: string; amount: number }[]
+
 type Groups2 = { tag_id: number; tag: Tag; amount: number }[]
+
 const format = 'yyyy-MM-dd'
+
 type GetKeyParams = {
   start: Time
   end: Time
   kind: Item['kind']
   group_by: 'happen_at' | 'tag_id'
 }
+
 function getKey({ start, end, kind, group_by }: GetKeyParams) {
   return `/api/v1/items/summary?happened_after=${start}
   &hanhappened_before=${end}&kind=${kind}&group_by=${group_by}`
+}
+
+const timeRangeMap: { [k in TimeRange]: number } = {
+  thisYear: 0,
+  custom: 0,
+  thisMonth: 0,
+  lastMonth: -1,
+  twoMonthsAgo: -2,
+  threeMonthsAgo: -3,
 }
 
 export const StatisticsPage: React.FC = () => {
@@ -34,14 +47,8 @@ export const StatisticsPage: React.FC = () => {
 
   // tab时间
   const generateStartEnd = () => {
-    let start: Time
-    if (timeRange === 'thisMonth') {
-      start = time().firstDayOfMonth
-    } else if (timeRange === 'lastMonth') {
-      start = time().add(-1, 'month').firstDayOfMonth
-    } else {
-      start = time()
-    }
+    const selected: Time = time().add(timeRangeMap[timeRange], 'month')
+    const start = selected.firstDayOfMonth
     const end = start.lastDayOfMonth.add(1, 'day')
     return { start, end }
   }
