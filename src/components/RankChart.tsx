@@ -8,8 +8,8 @@ const colors = ['#de5252', '#edaa9f', '#ffa750', '#13a9e4', '#53a867', '#eba953'
 
 export const RankChart: React.FC<Props> = (props) => {
   const { className, items } = props
-  const total = items?.reduce((result, item) => result + item.value, 0) ?? 0
-  const max = items?.reduce((prev, item) => Math.max(prev, item.value), 0) ?? 0
+  const total = items?.reduce((result, item) => result + parseFloat(item.value.toString()), 0) ?? 0
+  const max = items?.reduce((prev, item) => Math.max(prev, parseFloat(item.value.toString())), 0) ?? 0
   const renderItems = () => {
     return (
       items?.map((item, index) =>
@@ -18,11 +18,11 @@ export const RankChart: React.FC<Props> = (props) => {
           <div row-start-1 col-start-1 row-end-3 col-end-2
             w-48px h-48px rounded-24px bg="#EFEFEF" flex justify-center items-center
             text-24px>{item.sign}</div>
-          <div row-start-1 col-start-2 row-end-2 col-end-3 self-end>{item.name} - {`${(item.value / total * 100).toFixed(0)}%`}</div>
+          <div row-start-1 col-start-2 row-end-2 col-end-3 self-end>{item.name} - {`${(parseFloat(item.value.toString()) / total * 100).toFixed(0)}%`}</div>
           <div row-start-1 col-start-3 row-end-2 col-end-4 text-right self-end>
-            <Money value={item.value} /></div>
+            <Money value={parseFloat(item.value.toString())} /></div>
           <div row-start-2 col-start-2 row-end-3 col-end-4 bg="#CCC" h-8px self-start relative overflow-hidden>
-            <div absolute h-full rounded-4px style={{ background: colors[index], width: `${item.value / max * 100}%` }}></div>
+            <div absolute h-full rounded-4px style={{ background: colors[index], width: `${parseFloat(item.value.toString()) / max * 100}%` }}></div>
           </div>
         </div>)
     )
