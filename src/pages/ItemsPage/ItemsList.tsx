@@ -1,8 +1,11 @@
 import useSWRInfinite from 'swr/infinite'
 import styled from 'styled-components'
 import { useAjax } from '../../lib/ajax'
+import type { Time } from '../../lib/time'
 
 interface Props {
+  start: Time
+  end: Time
 }
 
 const Div = styled.div`
@@ -10,19 +13,22 @@ const Div = styled.div`
   text-align: center;
 `
 
-function getKey(pageIndex: number, prev: Resources<Item>) {
-  if (prev) {
-    const sendCount = (prev.pager.page - 1) * prev.pager.per_page
-      + prev.resources.length
-    const count = prev.pager.count
-    if (count - sendCount <= 0) {
-      return null
+export const ItemsList: React.FC<Props> = (props) => {
+  const { start, end } = props
+  function getKey(pageIndex: number, prev: Resources<Item>) {
+    if (prev) {
+      const sendCount = (prev.pager.page - 1) * prev.pager.per_page
+        + prev.resources.length
+      const count = prev.pager.count
+      if (count - sendCount <= 0) {
+        return null
+      }
     }
+    return `/api/v1/items?page=${pageIndex + 1}
+    &happened_after=${start.format('yyyy-MM-dd')}
+    &happened_before=${end.format('yyyy-MM-dd')}`
   }
-  return `/api/v1/items?page=${pageIndex + 1}`
-}
 
-export const ItemsList: React.FC<Props> = () => {
   const { get } = useAjax()
   const { data, error, size, setSize } = useSWRInfinite(
     getKey, async path => (await get<Resources<Item>>(path)).data,

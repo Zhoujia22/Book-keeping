@@ -66,6 +66,10 @@ export class Time {
     this[table[unit]] += n
     return this
   }
+  set(parts: Partial<Parts>) {
+    this.parts = parts
+    return this
+  }
   get date() {
     return new Date(this.#date)
   }
