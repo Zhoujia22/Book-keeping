@@ -15,6 +15,7 @@ export const Popup: React.FC<Props> = (props) => {
   const [maskVisible, setMaskVisible] = useState(visible)
 
   const maskStyles = useSpring({
+    visibility: (maskVisible ? 'visible' : 'hidden') as 'visible' | 'hidden',
     opacity: visible ? 1 : 0,
     onStart: ({ value }) => {
       if (value.opacity < 0.1) {
@@ -28,12 +29,8 @@ export const Popup: React.FC<Props> = (props) => {
     }
   })
 
-  const maskStyles2 = {
-    ...maskStyles,
-    visibility: (maskVisible ? 'visible' : 'hidden') as 'visible' | 'hidden'
-  }
-
   const wrapperStyles = useSpring({
+    visibility: visible ? 'visible' : 'hidden' as 'visible' | 'hidden',
     opacity: visible ? 1 : 0,
     transform: position === 'bottom' ? (visible ? 'translateY(0%)' : 'translateY(100%)') : '',
   })
@@ -42,7 +39,7 @@ export const Popup: React.FC<Props> = (props) => {
     <div touch-none>
       <animated.div fixed top-0 left-0 h-full w-full className="bg-black:75"
         z="[calc(var(--z-popup)-1)]" onClick={() => onClickMask?.()}
-        style={maskStyles2} />
+        style={maskStyles} />
 
       {position === 'bottom'
         ? (
