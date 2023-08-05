@@ -1,3 +1,4 @@
+import { usePopup } from '../hooks/usePopup'
 import { Tabs } from './Tabs'
 
 export type TimeRange =
@@ -8,11 +9,11 @@ export type TimeRange =
   | 'twoMonthsAgo'
   | 'threeMonthsAgo'
 
-  type Props = {
-    selected: TimeRange
-    onSelect: (selected: TimeRange) => void
-    timeRanges?: { key: TimeRange; text: string }[]
-  }
+type Props = {
+  selected: TimeRange
+  onSelect: (selected: TimeRange) => void
+  timeRanges?: { key: TimeRange; text: string }[]
+}
 
 const defaultTimeRanges: { key: TimeRange; text: string }[] = [
   { key: 'thisMonth', text: '本月' },
@@ -21,8 +22,26 @@ const defaultTimeRanges: { key: TimeRange; text: string }[] = [
   { key: 'custom', text: '自定义时间' },
 ]
 export const TimeRangePicker: React.FC<Props> = (props) => {
-  const { selected, onSelect, timeRanges = defaultTimeRanges } = props
+  const { selected, onSelect: _onSelect, timeRanges = defaultTimeRanges } = props
+
+  const onConfirm = () => {
+    _onSelect('custom')
+  }
+
+  const { popup, show, hide } = usePopup({ children: <div onClick={onConfirm}>弹框</div>, position: 'center' })
+
+  const onSelect = (key: TimeRange) => {
+    if (key === 'custom') {
+      show()
+    } else {
+      _onSelect(key)
+    }
+  }
+
   return (
-    <Tabs tabItems={timeRanges} value={selected} onChange={onSelect} />
+    <>
+      {popup}
+      < Tabs tabItems={timeRanges} value={selected} onChange={onSelect} />
+    </>
   )
 }
