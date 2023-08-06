@@ -8,12 +8,14 @@ type Options = {
   initVisible?: boolean
   children: ReactNode
   position?: 'bottom' | 'center'
+  zIndex?: string
 }
 
 export function usePopup(options: Options) {
-  const { initVisible = false, children, position } = options
+  const { initVisible = false, children, position, zIndex } = options
   const [visible, setVisible] = useState(initVisible)
   const popup = ReactDOM.createPortal(<Popup visible={visible}
+    zIndex={zIndex}
     position={position}
     onClickMask={() => setVisible(false)} >{children}</Popup>, rootDiv)
   return {
