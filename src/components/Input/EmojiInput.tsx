@@ -1,19 +1,21 @@
 import { useState } from 'react'
+import cs from 'classnames'
 import { emojis } from '../../lib/emojis'
 import s from './EmojiInput.module.scss'
 
 type Props = {
   value?: string
   onChange?: (value: string) => void
+  className?: string
 }
 export const EmojiInput: React.FC<Props> = (props) => {
   const [emojiKind, setEmojiKind] = useState('表情')
-  const { value, onChange } = props
+  const { value, onChange, className } = props
   return (
-        <div className={s.wrapper} b-1 rounded-8px>
+        <div className={cs(s.wrapper, className)} b-1 rounded-8px>
             <div flex p-8px gap-x-16px overflow-auto text='#999'>
                 {emojis.map((emoji) => <span b-1 b-transparent rounded-2px
-                p-r-1 p-l-1 key={emoji.name} whitespace-nowrap
+                    p-r-1 p-l-1 key={emoji.name} whitespace-nowrap
                     className={emoji.name === emojiKind ? s.selectedTab : ''}
                     onClick={() => setEmojiKind(emoji.name)}>{emoji.name}
                 </span>)}
