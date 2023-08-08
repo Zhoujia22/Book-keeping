@@ -11,6 +11,8 @@ declare module 'react' {
     after?: string
     left?: string
     shadow?: boolean
+    from?: string
+    to?: string
     w?: string
     z?: string
     h?: string
