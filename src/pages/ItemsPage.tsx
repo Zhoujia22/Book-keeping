@@ -48,7 +48,7 @@ export const ItemsPage: React.FC = () => {
           <Icon name='alligator' />
         </div>
         : <>
-          <ItemsSummary />
+          <ItemsSummary start={start} end={end}/>
           <ItemsList start={start} end={end} />
         </>
       }
