@@ -19,8 +19,7 @@ type Props = {
   | { type: 'select'; options: { value: string; text: string }[] }
 )
 export const Input: React.FC<Props> = (props) => {
-  const { label, error, placeholder, value, type, onChange: _onChange, disableError, className } = props
-
+  const { label, error, placeholder, value, onChange: _onChange, disableError, className } = props
   const onChange = (e: string | ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     if (typeof e === 'string') {
       _onChange?.(e)
@@ -33,7 +32,7 @@ export const Input: React.FC<Props> = (props) => {
     switch (props.type) {
       case undefined:
       case 'text':
-        return <input j-input-text type={type} {...common} />
+        return <input j-input-text type='text' {...common} />
       case 'emoji':
         return <EmojiInput {...common} />
       case 'sms_code':

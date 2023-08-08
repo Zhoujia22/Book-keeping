@@ -58,13 +58,14 @@ export const TimeRangePicker: React.FC<Props> = (props) => {
 
   const onConfirm = () => {
     _onSelect({
-      start: time(),
-      end: time(),
+      start: time(start),
+      end: time(end).add(1, 'day'),
       name: 'custom'
     })
+    hide()
   }
 
-  const { popup, show } = usePopup({
+  const { popup, show, hide } = usePopup({
     zIndex: 'var(--z-dialog)',
     children: <div text='#1d1d1f'>
       <header text-18px bg="f5f5f7" py-13px p-l-16px >
@@ -75,8 +76,8 @@ export const TimeRangePicker: React.FC<Props> = (props) => {
         <Input className="mt-8px" disableError label='结束时间' type='myDate' value={end} onChange={(d) => setEnd(d)} />
       </main>
       <footer text-right>
-        <button border-none bg-transparent px-16px py-8px>取消</button>
-        <button border-none bg-transparent px-16px py-8px>确定</button>
+        <button border-none bg-transparent px-16px py-8px onClick={() => hide()}>取消</button>
+        <button border-none bg-transparent px-16px py-8px onClick={onConfirm}>确定</button>
       </footer>
     </div>,
 

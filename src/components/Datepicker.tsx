@@ -9,13 +9,15 @@ type Props = {
   onConfirm?: (value: Date) => void
 }
 
+const getNow = () => time().set({ hours: 0, minutes: 0, seconds: 0, ms: 0 })
+
 export const DatePicker: React.FC<Props> = (props) => {
   const { start, end, value, onCancel, onConfirm } = props
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, update] = useState({})
-  const startTime = start ? time(start) : time().add(-10, 'years')
-  const endTime = end ? time(end) : time().add(10, 'year')
-  const valueTime = useRef(value ? time(value) : time())
+  const startTime = start ? time(start) : getNow().add(-10, 'years')
+  const endTime = end ? time(end) : getNow().add(10, 'year')
+  const valueTime = useRef(value ? time(value).set({ hours: 0, minutes: 0, seconds: 0, ms: 0 }) : getNow())
   if (endTime.timestamp <= startTime.timestamp) {
     throw new Error('结束时间必须晚于开始时间')
   }

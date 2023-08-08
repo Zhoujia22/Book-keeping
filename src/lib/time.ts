@@ -33,6 +33,11 @@ export class Time {
   get clone() {
     return new Time(this.#date)
   }
+  get removeTime() {
+    this.set({ hours: 0, minutes: 0, seconds: 0, ms: 0 })
+    return this
+  }
+
   /**
    * 格式化输出
    * @param pattern 目前只支持 yyyy MM dd HH mm ss fff
@@ -105,6 +110,7 @@ export class Time {
       this.#date[methodName](value)
     })
   }
+
   get year() {
     return this.parts.year
   }

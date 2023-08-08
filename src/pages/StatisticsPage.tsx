@@ -11,7 +11,6 @@ import { RankChart } from '../components/RankChart'
 import { Input } from '../components/Input'
 import { type Time, time } from '../lib/time'
 import { useAjax } from '../lib/ajax'
-import { timeRangeToStartAndEnd } from '../lib/timeRangeToStartAndEnd'
 
 type Groups = { happen_at: string; amount: number }[]
 
@@ -49,7 +48,7 @@ export const StatisticsPage: React.FC = () => {
     })
   }
 
-  const { start, end } = timeRangeToStartAndEnd(timeRange)
+  const { start, end } = timeRange
   const defaultItems = generateDefaultItems(start)
 
   // 折线图数据
