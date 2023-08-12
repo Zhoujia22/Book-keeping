@@ -25,6 +25,9 @@ export const DatePicker: React.FC<Props> = (props) => {
     .map((_, index) => startTime.year + index)
   const monthList = Array.from({ length: 12 }).map((_, index) => index + 1)
   const dayList = Array.from({ length: valueTime.current.lastDayOfMonth.day }).map((_, index) => index + 1)
+  const hoursList = Array.from({ length: 24 }).map((_, index) => index)
+  const minutesList = Array.from({ length: 60 }).map((_, index) => index)
+
   return (
     <div>
       <div flex justify-between p-8px border-b-1 b-b-solid b="#f3f3f3" children-p-8px>
@@ -32,20 +35,37 @@ export const DatePicker: React.FC<Props> = (props) => {
         <span>时间选择</span>
         <span onClick={() => onConfirm?.(valueTime.current.date)}>确定</span>
       </div>
+      <div flex children-grow-1 text-center children-p-16px>
+        <span>年</span>
+        <span>月</span>
+        <span>日</span>
+        <span>时</span>
+        <span>分</span>
+      </div>
       <div flex >
         <Clumn className='grow-1' items={yearList} value={valueTime.current.year}
-          onChange={(year) => {
-            valueTime.current.year = year
+          onChange={(v) => {
+            valueTime.current.year = v
             update({})
           }} />
         <Clumn className='grow-1' items={monthList} value={valueTime.current.month}
-          onChange={(month) => {
-            valueTime.current.month = month
+          onChange={(v) => {
+            valueTime.current.month = v
             update({})
           }} />
         <Clumn className='grow-1' items={dayList} value={valueTime.current.day}
-          onChange={(day) => {
-            valueTime.current.day = day
+          onChange={(v) => {
+            valueTime.current.day = v
+            update({})
+          }} />
+        <Clumn className='grow-1' items={hoursList} value={valueTime.current.hours}
+          onChange={(v) => {
+            valueTime.current.hours = v
+            update({})
+          }} />
+        <Clumn className='grow-1' items={minutesList} value={valueTime.current.minutes}
+          onChange={(v) => {
+            valueTime.current.minutes = v
             update({})
           }} />
       </div>
@@ -102,7 +122,7 @@ export const Clumn: React.FC<ColumProps> = (props) => {
         onChange(items[Math.abs(y / itemHeight)])
       }}
     >
-      <div border-b-1 border-t-1 b="#eee" style={{ height: itemHeight, transform: `translateY(${-itemHeight / 2}px)` }} absolute top="50%" w-full />
+      <div border-b-1 b-t-solid b-b-solid border-t-1 b="#eee" style={{ height: itemHeight, transform: `translateY(${-itemHeight / 2}px)` }} absolute top="50%" w-full />
       <div absolute top="50%" w-full style={{ transform: `translateY(${-itemHeight / 2}px)` }} >
         <ol style={{ transform: `translateY(${translateY}px)` }}
           text-center children-flex children-items-center children-justify-center>

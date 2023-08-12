@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Gradient } from '../components/Gradient'
 import { Tabs } from '../components/Tabs'
 import { TopNav } from '../components/TopNav'
@@ -13,6 +14,7 @@ import { ItemDate } from './ItemNewPage/ItemDate'
 
 export const ItemsNewPage: React.FC = () => {
   const { data, setData, setError } = useCreateItemStore()
+  const nav = useNavigate()
 
   const tabItems: { key: Item['kind']; text: string; element: ReactNode }[]
     = [{
@@ -42,6 +44,7 @@ export const ItemsNewPage: React.FC = () => {
       window.alert(message)
     } else {
       await post<Resource<Item>>('/api/v1/items', data)
+      nav('/items')
     }
   }
   return (

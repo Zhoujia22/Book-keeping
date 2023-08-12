@@ -32,6 +32,7 @@ export const Tags: React.FC<Props> = (props) => {
 
   const { data, error, size, setSize } = useSWRInfinite(
     getKey, async path => (await get<Resources<Tag>>(path)).data,
+    { revalidateAll: true }
   )
 
   const onLoadMore = () => {
@@ -71,11 +72,11 @@ export const Tags: React.FC<Props> = (props) => {
                   flex-col gap-y-8px' onEnd={() => nav(`/tags/${tag.id}`)}>
                     {props.value?.includes(tag.id)
                       ? <span block w-48px h-48px rounded="24px" bg="#EFEFEF"
-                        flex justify-center items-center text-24px b-3 b-pink >
+                        flex justify-center items-center text-24px b-3px b-dotted b-pink >
                         {tag.sign}
                       </span>
                       : <span block w-48px h-48px rounded="24px" bg="#EFEFEF"
-                        flex justify-center items-center text-24px b-1 b-b-solid b-transparent >
+                        flex justify-center items-center text-24px b-1 b-solid b-transparent >
                         {tag.sign}
                       </span>}
                     <span text-12px text="#666">{tag.name}</span>
