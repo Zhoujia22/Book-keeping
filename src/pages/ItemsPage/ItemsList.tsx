@@ -56,7 +56,7 @@ export const ItemsList: React.FC<Props> = (props) => {
       <ol> {
         data.map(({ resources }) => {
           return resources.map((item) => {
-            return <li key={item.id} grid grid-cols="[auto_1fr_auto]" grid-rows-2 px-16px py-8px gap-x-12px border-b-1 b="#EEE">
+            return <li key={item.id} grid grid-cols="[auto_1fr_auto]" grid-rows-2 px-16px py-8px gap-x-12px border-b-1 b-b-solid b="#EEE">
               <div row-start-1 col-start-1 row-end-3 col-end-2 w-48px h-48px text-24px flex justify-center items-center bg="#D8D8D8" rounded="50%">
                 😘
               </div>

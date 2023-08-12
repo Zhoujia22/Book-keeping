@@ -27,7 +27,7 @@ export const DatePicker: React.FC<Props> = (props) => {
   const dayList = Array.from({ length: valueTime.current.lastDayOfMonth.day }).map((_, index) => index + 1)
   return (
     <div>
-      <div flex justify-between p-8px border-b-1 b="#f3f3f3" children-p-8px>
+      <div flex justify-between p-8px border-b-1 b-b-solid b="#f3f3f3" children-p-8px>
         <span onClick={onCancel}>取消</span>
         <span>时间选择</span>
         <span onClick={() => onConfirm?.(valueTime.current.date)}>确定</span>
