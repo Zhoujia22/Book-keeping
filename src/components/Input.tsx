@@ -37,7 +37,7 @@ export const Input: React.FC<Props> = (props) => {
         return <EmojiInput {...common} />
       case 'sms_code':
         return (
-          <SmsCodeInput className={className} {...common} />
+          <SmsCodeInput {...common} request={props.request} />
         )
       case 'myDate':
         return <DateInput {...common} />
