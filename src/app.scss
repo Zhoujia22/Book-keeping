@@ -4,7 +4,7 @@
   --z-menu: 256;
   --z-dialog: 512;
   --z-popup: 1024;
-  --color-blue:#144a74
+  --color-blue: #144a74
 }
 
 * {
@@ -61,4 +61,18 @@ code {
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+@media (min-width:500px) {
+  body {
+    background: #7a7374;
+  }
+
+  #root {
+    background: white;
+    min-height: 100vh;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
