@@ -1,6 +1,6 @@
-export function confirmable(fn: () => void) {
-  const result = window.confirm('确定要删除吗？')
-  if (result) {
-    fn()
+export function confirmable(title: string, fn: () => void) {
+  return () => {
+    const result = window.confirm(title)
+    if (result) { fn() }
   }
 }

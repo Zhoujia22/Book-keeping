@@ -42,7 +42,7 @@ export const Input: React.FC<Props> = (props) => {
       case 'myDate':
         return <DateInput {...common} />
       case 'select':
-        return <select {...common} className='h-36px,rounded-8px'>
+        return <select {...common} h-36px rounded-8px>
           {
             props.options.map(option =>
               <option key={option.value} value={option.value}>{option.text}</option>)

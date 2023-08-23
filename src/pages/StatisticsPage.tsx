@@ -55,14 +55,14 @@ export const StatisticsPage: React.FC = () => {
       (await get<{ groups: Groups; total: number }>(path)).data.groups
         .map(({ happen_at, amount }) => ({ x: happen_at, y: (amount / 100).toFixed(2) }))
   )
-  const normalizedItems = defaultItems?.map((defaultItem, index) =>
+  const normalizedItems = defaultItems?.map((defaultItem) =>
     items?.find((item) => item.x === defaultItem.x) || defaultItem
   )
   // 饼图数据
   const { data: items2 } = useSWR(getKey({ start, end, kind, group_by: 'tag_id' }),
     async (path) =>
       (await get<{ groups: Groups2; total: number }>(path)).data.groups
-        .map(({ tag_id, tag, amount }) =>
+        .map(({ tag, amount }) =>
           ({ name: tag.name, value: (amount / 100).toFixed(2), sign: tag.sign }))
   )
   return (
