@@ -26,15 +26,13 @@ type GetKeyParams = {
 }
 
 function getKey({ start, end, kind, group_by }: GetKeyParams) {
-  return `/api/v1/items/summary?happened_after=${start}
-  &hanhappened_before=${end}&kind=${kind}&group_by=${group_by}`
+  return `/api/v1/items/summary?happened_after=${start.format('yyyy-MM-dd')}&happened_before=${end.format('yyyy-MM-dd')}&kind=${kind}&group_by=${group_by}`
 }
-
 export const StatisticsPage: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>({
     name: 'thisMonth',
     start: time().firstDayOfMonth,
-    end: time().lastDayOfMonth.add(1, 'day'),
+    end: time().lastDayOfMonth.add(1, 'day')
   })
   const [kind, setKind] = useState<Item['kind']>('expenses')
   const { get } = useAjax({ showLoading: false, handleError: true })
@@ -57,18 +55,16 @@ export const StatisticsPage: React.FC = () => {
       (await get<{ groups: Groups; total: number }>(path)).data.groups
         .map(({ happen_at, amount }) => ({ x: happen_at, y: (amount / 100).toFixed(2) }))
   )
-  const normalizedItems = defaultItems.map((defaultItem) => (
+  const normalizedItems = defaultItems?.map((defaultItem, index) =>
     items?.find((item) => item.x === defaultItem.x) || defaultItem
-  ))
-
+  )
   // 饼图数据
   const { data: items2 } = useSWR(getKey({ start, end, kind, group_by: 'tag_id' }),
     async (path) =>
       (await get<{ groups: Groups2; total: number }>(path)).data.groups
-        .map(({ tag, amount }) =>
+        .map(({ tag_id, tag, amount }) =>
           ({ name: tag.name, value: (amount / 100).toFixed(2), sign: tag.sign }))
   )
-
   return (
     <div>
       <Gradient >
@@ -91,7 +87,8 @@ export const StatisticsPage: React.FC = () => {
           {
             text: '三个月前',
             key: { name: 'threeMonthsAgo', start: time().add(-3, 'month').firstDayOfMonth, end: time().add(-3, 'month').lastDayOfMonth.add(1, 'day') },
-          }]} />
+          },
+        ]} />
       <div flex p-16px items-center gap-x-16px>
         <span grow-0 shrink-0>类型</span>
         <div grow-1 shrink-1>
