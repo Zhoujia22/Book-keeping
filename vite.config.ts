@@ -23,7 +23,7 @@ export default defineConfig((env) => {
       Unocss(),
       react(),
       viteMockServe(),
-      svgsprites({ noOptimizeList: ['logo', 'chart', 'category', 'export', 'noty', 'calendar', 'alligator'] })
+      svgsprites({ noOptimizeList: ['logo', 'update', 'posting', 'chart', 'category', 'export', 'noty', 'calendar', 'alligator'] })
     ]
   }
 })

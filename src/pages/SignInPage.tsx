@@ -33,7 +33,7 @@ export const SignInPage: React.FC = () => {
         .catch(onSubmitError)
       const jwt = response.data.jwt
       localStorage.setItem('jwt', jwt)
-      const from = search.get('from') || 'items'
+      const from = search.get('from') || '/items'
       nav(from)
     }
   }
@@ -62,7 +62,7 @@ export const SignInPage: React.FC = () => {
         <Input label='验证码' type="sms_code" placeholder='六位数字' value={data.code}
           onChange={value => setData({ code: value })}
           error={error.code?.[0]} request={sendSmsCode} />
-        <div m-100px>
+        <div m-y-40px>
           <button j-btn type='submit'>登录</button>
         </div>
       </form>

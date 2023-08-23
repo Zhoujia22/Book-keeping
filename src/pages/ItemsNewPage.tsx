@@ -15,22 +15,22 @@ import { ItemDate } from './ItemNewPage/ItemDate'
 
 export const ItemsNewPage: React.FC = () => {
   const { data, setData, setError } = useCreateItemStore()
-  const nav = useNavigate()
-
-  const tabItems: { key: Item['kind']; text: string; element: ReactNode }[]
-    = [{
+  const tabItems: { key: Item['kind']; text: string; element?: ReactNode }[] = [
+    {
       key: 'expenses',
       text: '支出',
-      element: <Tags kind='expenses'
-        value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} />
+      element:
+        <Tags kind="expenses" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} />
     },
     {
       key: 'income',
       text: '收入',
-      element: <Tags kind='income'
-        value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} />
-    }]
+      element:
+        <Tags kind="income" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} />
+    }
+  ] // React DOM diff 的优化
   const { post } = useAjax({ showLoading: true, handleError: true })
+  const nav = useNavigate()
   const onSubmit = async () => {
     const error = validate(data, [
       { key: 'kind', type: 'required', message: '请选择类型：收入或支出' },

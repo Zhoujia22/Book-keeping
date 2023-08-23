@@ -10,9 +10,8 @@ type CreateItem = {
   setData: (data: Partial<Data>) => void
   setError: (error: Partial<FormError<Data>>) => void
 }
-
-export const useCreateItemStore = create<CreateItem>((set, get) => (
-  {
+export const useCreateItemStore = create<CreateItem>((set, get) => {
+  return {
     data: {
       kind: 'expenses',
       tag_ids: [],
@@ -43,4 +42,4 @@ export const useCreateItemStore = create<CreateItem>((set, get) => (
       }))
     }
   }
-))
+})
