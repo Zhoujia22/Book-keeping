@@ -38,7 +38,6 @@ export const TagForm: React.FC<Props> = (props) => {
       setData(tag)
     } else {
       setData({
-        kind: 'expenses',
         sign: '🔆',
         name: ''
       })
