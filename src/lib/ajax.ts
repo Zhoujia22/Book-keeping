@@ -6,7 +6,7 @@ import { useLoadingStore } from '../stores/useLoadingStore'
 // 封装 axios
 
 export const ajax = axios.create({
-  baseURL: isDev ? '/' : 'http://121.196.236.94:8080/',
+  baseURL: isDev ? '/' : 'https://mangosteen2.hunger-valley.com',
   headers: {
     'Content-Type': 'application/json'
   },
