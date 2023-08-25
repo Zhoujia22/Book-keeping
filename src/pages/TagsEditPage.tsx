@@ -13,7 +13,7 @@ export const TagsEditPage: React.FC = () => {
   const onDelete = confirmable('确定要删除吗？', async () => {
     if (!id) { throw new Error('id 不能为空') }
     await destroy(`/api/v1/tags/${id}`).catch((error) => { window.alert('删除失败'); throw error })
-    window.alert('删除成功')
+    window.alert('删除成功!')
     nav('/items/new')
   })
   return (
